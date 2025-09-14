@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MetaReveal V2 - Advanced Metadata Analyzer</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #1e1e1e; color: #eee; padding: 20px; }
+    h1 { color: #00bfff; }
+    form { margin: 20px 0; }
+    pre { background: #111; padding: 15px; border-radius: 8px; max-height: 400px; overflow-y: auto; }
+    button { background: #00bfff; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+    button:hover { background: #0099cc; }
+  </style>
+</head>
+<body>
+  <h1>MetaReveal V2 - Advanced Metadata Analyzer</h1>
+
+  <form id="uploadForm" enctype="multipart/form-data">
+    <input type="file" name="file" required>
+    <button type="submit">Analyze Metadata</button>
+  </form>
+
+  <h2>Results</h2>
+  <pre id="result"></pre>
+
+  <script>
+    const form = document.getElementById("uploadForm");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const response = await fetch("/analyze", { method: "POST", body: formData });
+      const data = await response.json();
+      document.getElementById("result").textContent = JSON.stringify(data, null, 2);
+    });
+  </script>
+</body>
+</html>
